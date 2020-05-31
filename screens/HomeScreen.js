@@ -33,17 +33,24 @@ class HomeScreen extends React.Component {
   };
 
   handleBarCodeScanned = (result) => {
-    if (!this.state.scanned) {
-      const {moviesList} = this.state;
-      const movieData = JSON.parse(result.data);
-      // Amit Sova: The image link in the QR Code refers to a website and is not a valid .jpg file. Therefore i have replaced it with the hardcoded link to the correct image.
-      movieData.image = "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,704,1000_AL_.jpg"
-      moviesList.push(movieData);
-      moviesList.sort((e1,e2)=>{return e1.releaseYear<e2.releaseYear})
-      this.setState({ scanned: result, moviesList,showQRScanner:false, showSuccessSnackbar: true});
+    try {
+      if (!this.state.scanned) {
+        const {moviesList} = this.state;
+        const movieData = JSON.parse(result.data);
+        // Amit Sova: The image link in the QR Code refers to a website and is not a valid .jpg file. Therefore i have replaced it with the hardcoded link to the correct image.
+        movieData.image = "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,704,1000_AL_.jpg"
+        moviesList.push(movieData);
+        moviesList.sort((e1, e2) => {
+          return e1.releaseYear < e2.releaseYear
+        })
+        this.setState({scanned: result, moviesList, showQRScanner: false, showSuccessSnackbar: true});
+      } else {
+        this.setState({showQRScanner: false, showAlreadyScannedSnackbar: true})
+      }
     }
-    else{
-      this.setState({showQRScanner:false, showAlreadyScannedSnackbar: true})
+    catch (e) {
+      alert("Invalid QRCode")
+      this.setState({showQRScanner: false});
     }
   };
 
