@@ -74,7 +74,7 @@ class App extends React.Component{
                                 component={HomeScreen}
                                 initialParams={{ movies }}
                                 options={{
-                                    title: 'Movies List',
+                                    title: 'Movies App',
                                     headerStyle: {
                                         backgroundColor: '#00b3b3',
                                     },
@@ -84,10 +84,6 @@ class App extends React.Component{
                                         fontSize: 20,
                                     },
                                 }}
-                                headerShown={false}
-                                navigationOptions={
-                                    {headerShown: false}
-                                }
                             />
                         </Stack.Navigator>
                     </NavigationContainer> :
